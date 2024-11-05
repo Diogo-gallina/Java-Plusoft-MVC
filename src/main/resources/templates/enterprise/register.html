@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Empresas</title>
+</head>
+<body>
+<div class="container" layout:fragment="conteudo">
+    <h1>Cadastro de Empresas</h1>
+    <div th:if="!${#strings.isEmpty(msg)}" class="alert alert-success">
+        <span th:text="${msg}"></span>
+    </div>
+    <form th:action="@{/enterprise/register}" method="post" th:object="${enterpriseDTO}">
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" th:field="*{name}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CNPJ</label>
+            <input type="text" th:field="*{cnpj}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tipo de segmento</label>
+            <select th:field="*{segmentType}" class="form-control">
+                <option th:each="segmentType : ${type}" th:value="${segmentType}" th:text="${segmentType.label}"></option>
+            </select>
+        </div>
+        <button class="btn btn-success">Cadastrar</button>
+    </form>
+</div>
+</body>
+</html>

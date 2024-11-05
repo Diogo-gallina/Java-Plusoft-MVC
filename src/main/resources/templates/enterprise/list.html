@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Empresa</title>
+</head>
+<body>
+<div class="container" layout:fragment="conteudo">
+    <h1>Listagem de Empresa</h1>
+    <div th:if="!${#strings.isEmpty(msg)}" class="alert alert-success">
+        <span th:text="${msg}"></span>
+    </div>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Tipo de segmento</th>
+            <th>Data de criação</th>
+            <th>Data de atualização</th>
+            <th></th>
+        </tr>
+        <tr th:each="enterprise:${enterprises}">
+            <td th:text="${enterprise.id}"></td>
+            <td th:text="${enterprise.name}"></td>
+            <td th:text="${enterprise.cnpj}"></td>
+            <td th:text="${enterprise.segmentType?.label}"></td>
+            <td th:text="${enterprise.createdAt}"></td>
+            <td th:text="${enterprise.updatedAt}"></td>
+            <td>
+                <a th:href="@{/enterprise/update/}+${enterprise.id}" class="btn btn-sm btn-primary">Editar</a>
+                <button th:onclick="|enterpriseId.value = ${enterprise.id}|" type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Excluir
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente excluir a empresa?
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{/enterprise/delete}" method="post">
+                        <input type="hidden" id="enterpriseId" name="idEnterprise">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                        <button type="submit" class="btn btn-danger">Sim</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

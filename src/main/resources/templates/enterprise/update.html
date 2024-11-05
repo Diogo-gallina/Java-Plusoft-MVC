@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Empresa</title>
+</head>
+<body>
+<div class="container" layout:fragment="conteudo">
+    <h1>Edição de Empresa</h1>
+
+    <form th:action="@{/enterprise/update}" method="post" th:object="${enterpriseDTO}">
+        <input hidden="hidden" th:field="*{id}">
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" th:field="*{name}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tipo de segmento</label>
+            <select th:field="*{segmentType}" class="form-control">
+                <option th:each="segmentType :${type}" th:value="${segmentType}" th:text="${segmentType.label}"></option>
+            </select>
+        </div>
+        <button class="btn btn-success">Editar</button>
+    </form>
+</div>
+</body>
+</html>
