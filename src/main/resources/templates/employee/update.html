@@ -10,7 +10,7 @@
 <div class="container" layout:fragment="conteudo">
     <h1>Edição de Funcionário</h1>
 
-    <form th:action="@{/templates/employee/update}" method="post" th:object="${employeeDTO}">
+    <form th:action="@{/employee/update}" method="post" th:object="${employeeDTO}">
         <input hidden="hidden" th:field="*{id}">
         <div class="mb-3">
             <label class="form-label">Nome</label>
